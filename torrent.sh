@@ -1,9 +1,7 @@
 #Created off ITSM-28, see it for BRD
 #!/bin/bash
 
-WD=$(pwd)
-
-if [ "$WD" = "/usr/local/www" ]
+if [ "$USER" = "cron" ]
 then
     . /mnt/pool-02/configs/torrent.config
 else
