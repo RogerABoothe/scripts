@@ -1,12 +1,26 @@
 #Created off ITSM-28, see it for BRD
 #!/bin/bash
 
-. /mnt/pool-01/coderepos/scripts/torrent_dev.config
+WD=$(pwd)
+
+if [ "$WD" = "/usr/local/www" ]
+then
+    . /mnt/pool-02/configs/torrent.config
+else
+    . /mnt/pool-01/coderepos/scripts/torrent_dev.config
+fi
+
 SOURCE="${CONFIG_SOURCE//$'\r'}"
 WATCH="${CONFIG_WATCH//$'\r'}"
 LOG="${CONFIG_LOG//$'\r'}"
 
-cd $SOURCE
+FILE_COUNT=$(find $SOURCE -type f -amin -5 | wc -l)
 
-find ./ -type f -mmin -10  -exec cp -pf {} $WATCH \;
-
+if [[ $FILE_COUNT -gt 0 ]]
+then
+    echo "Process started!" $(date "+%Y-%m-%d %H-%M-%S")>> $LOG
+    echo "Moving" $FILE_COUNT "files" >> $LOG
+    find $SOURCE -type f -amin -5 >> $LOG
+    find $SOURCE -type f -amin -5  -exec cp -pf {} $WATCH \;
+    echo "Process ended!" $(date "+%Y-%m-%d %H-%M-%S") >> $LOG
+fi
