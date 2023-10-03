@@ -18,7 +18,8 @@ if [[ $FILE_COUNT -gt 0 ]]
 then
     echo "Process started!" $(date "+%Y-%m-%d %H-%M-%S")>> $LOG
     echo "Moving" $FILE_COUNT "files" >> $LOG
-    find $SOURCE -type f -amin -5 >> $LOG
-    find $SOURCE -type f -amin -5  -exec cp -pf {} $WATCH \;
+    cd $SOURCE
+    find *.torrent -amin -5 >> $LOG
+    find *.torrent -amin -5 -exec cp -pf {} $WATCH \;
     echo "Process ended!" $(date "+%Y-%m-%d %H-%M-%S") >> $LOG
 fi
