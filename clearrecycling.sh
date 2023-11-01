@@ -2,12 +2,7 @@
 #!/bin/bash
 # -atime +14 | -amin -5
 
-if [ "$USER" = "root" ]
-then
-    . /mnt/pool-02/configs/recycling.config
-else
-    . /mnt/pool-01/coderepos/scripts/recycling_dev.config
-fi
+. /mnt/pool-02/configs/recycling.config
 
 LOG="${CONFIG_LOG//$'\r'}"
 echo "Process started!" $(date "+%Y-%m-%d %H-%M-%S")>> $LOG
