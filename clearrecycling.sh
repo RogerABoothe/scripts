@@ -2,7 +2,7 @@
 #!/bin/bash
 # -atime +14 | -amin -5
 
-if [ "$USER" = "cron" ]
+if [ "$USER" = "root" ]
 then
     . /mnt/pool-02/configs/recycling.config
 else
